@@ -2,6 +2,8 @@ package com.example.democleanarch.vin.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.example.democleanarch.vin.controller.model.VinDTO;
 import com.example.democleanarch.vin.usecase.exception.VinAlreadyExistsException;
 import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
@@ -28,6 +30,7 @@ public class VinControllerSpringImpl {
 	}
 
 	@PostMapping
+	@Transactional
 	public VinDTO create(@RequestBody final VinDTO vinDTO) {
 		try {
 			return controller.createVin(vinDTO);
@@ -51,6 +54,7 @@ public class VinControllerSpringImpl {
 	}
 
 	@DeleteMapping
+	@Transactional
 	public void deleteAll() {
 		controller.deleteAll();
 	}
