@@ -7,19 +7,20 @@ import java.util.stream.Collectors;
 import com.example.democleanarch.vin.model.Vin;
 import com.example.democleanarch.vin.usecase.port.VinRepository;
 
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
-@Component
-public class VinRepositoryImpl implements VinRepository {
+@Slf4j
+public class VinRepositoryJpaImpl implements VinRepository {
 
 	private JpaVinRepository repository;
 
-	public VinRepositoryImpl(JpaVinRepository repository) {
+	public VinRepositoryJpaImpl(JpaVinRepository repository) {
 		this.repository = repository;
 	}
 
 	@Override
 	public Vin create(Vin vin) {
+		log.info("Création d'un vin dans VinRepositoryJpaImpl");
 		VinEntity entity = repository.save(VinEntity.toVinEntity(vin));
 		return entity.toVin();
 	}

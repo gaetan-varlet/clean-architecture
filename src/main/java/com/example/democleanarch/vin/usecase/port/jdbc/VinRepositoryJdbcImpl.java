@@ -8,35 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import com.example.democleanarch.vin.model.Vin;
 import com.example.democleanarch.vin.usecase.port.VinRepository;
 
-import org.springframework.orm.jpa.EntityManagerFactoryInfo;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Repository
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class VinRepositoryJdbcImpl implements VinRepository {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private DataSource dataSource;
 
 	private static final String NO_DATE_SOURCE = "no data source";
 
 	@Override
 	public Vin create(Vin vin) {
-		String request = "INSERT INTO vin (chateau, appellation, prix) VALUES (?, ?, ?)";
-		DataSource dataSource = ((EntityManagerFactoryInfo) entityManager.getEntityManagerFactory()).getDataSource();
+		log.info("Création d'un vin dans VinRepositoryJdbcImpl");
+		String request = "INSERT INTO vin (id, chateau, appellation, prix) VALUES (NEXT VALUE FOR HIBERNATE_SEQUENCE, ?, ?, ?)";
 		if (dataSource != null) {
 			try (
 					Connection connection = dataSource.getConnection();
 					PreparedStatement ps = connection.prepareStatement(request);) {
 				ps.setString(1, vin.getChateau());
 				ps.setString(2, vin.getAppellation());
-				ps.setDouble(3, vin.getPrix());
+				ps.setObject(3, vin.getPrix());
 				ps.executeUpdate();
 				return findByChateau(vin.getChateau())
 						.orElseThrow(() -> new JdbcException("Erreur lors de l'enregistrement du vin"));
@@ -50,7 +49,6 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 	@Override
 	public List<Vin> findAll() {
 		String request = "SELECT * FROM vin";
-		DataSource dataSource = ((EntityManagerFactoryInfo) entityManager.getEntityManagerFactory()).getDataSource();
 		if (dataSource != null) {
 			try (
 					Connection connection = dataSource.getConnection();
@@ -70,20 +68,37 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 
 	@Override
 	public Optional<Vin> findById(Integer id) {
-		return Optional.empty();
+		String request = "SELECT * FROM vin WHERE id = ?";
+		if (dataSource != null) {
+			try (
+					Connection connection = dataSource.getConnection();
+					PreparedStatement ps = connection.prepareStatement(request);) {
+				ps.setInt(1, id);
+				try (ResultSet rs = ps.executeQuery()) {
+					if (rs.next()) {
+						return Optional.of(mapResultSetToVin(rs));
+					}
+				}
+				return Optional.empty();
+			} catch (SQLException e) {
+				throw new JdbcException(e.getMessage());
+			}
+		}
+		throw new JdbcException(NO_DATE_SOURCE);
 	}
 
 	@Override
 	public Optional<Vin> findByChateau(String chateau) {
 		String request = "SELECT * FROM vin WHERE chateau = ?";
-		DataSource dataSource = ((EntityManagerFactoryInfo) entityManager.getEntityManagerFactory()).getDataSource();
 		if (dataSource != null) {
 			try (
 					Connection connection = dataSource.getConnection();
-					PreparedStatement ps = connection.prepareStatement(request);
-					ResultSet rs = ps.executeQuery();) {
-				if (rs.next()) {
-					return Optional.of(mapResultSetToVin(rs));
+					PreparedStatement ps = connection.prepareStatement(request);) {
+				ps.setString(1, chateau);
+				try (ResultSet rs = ps.executeQuery()) {
+					if (rs.next()) {
+						return Optional.of(mapResultSetToVin(rs));
+					}
 				}
 				return Optional.empty();
 			} catch (SQLException e) {
@@ -96,7 +111,6 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 	@Override
 	public void deleteById(Integer id) {
 		String request = "DELETE FROM vin WHERE id = ?";
-		DataSource dataSource = ((EntityManagerFactoryInfo) entityManager.getEntityManagerFactory()).getDataSource();
 		if (dataSource != null) {
 			try (
 					Connection connection = dataSource.getConnection();

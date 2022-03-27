@@ -10,6 +10,9 @@ import com.example.democleanarch.vin.usecase.DeleteVin;
 import com.example.democleanarch.vin.usecase.FindVin;
 import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class VinController {
 
 	private CreateVin createVin;
@@ -40,6 +43,10 @@ public class VinController {
 
 	public String deleteVin(final Integer id) {
 		return deleteVin.deleteById(id);
+	}
+
+	public void deleteAll() {
+		findVin.findAllVin().stream().forEach(v -> deleteVin.deleteById(v.getId()));
 	}
 
 }

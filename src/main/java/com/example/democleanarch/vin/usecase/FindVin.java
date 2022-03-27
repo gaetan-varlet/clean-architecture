@@ -7,6 +7,9 @@ import com.example.democleanarch.vin.model.Vin;
 import com.example.democleanarch.vin.usecase.port.VinRepository;
 import com.example.democleanarch.vin.usecase.validator.VinValidator;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class FindVin {
 
 	private final VinRepository repository;

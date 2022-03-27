@@ -9,13 +9,17 @@ import java.util.Optional;
 import com.example.democleanarch.vin.model.Vin;
 import com.example.democleanarch.vin.usecase.port.VinRepository;
 
-public class InMemoryVinRepository implements VinRepository {
+import lombok.extern.slf4j.Slf4j;
 
-	private Integer currentId = 0;
+@Slf4j
+public class VinRepositoryInMemoryImpl implements VinRepository {
+
+	private Integer currentId = 1;
 	private final Map<Integer, Vin> inMemoryDb = new HashMap<>();
 
 	@Override
 	public Vin create(Vin vin) {
+		log.info("Création d'un vin dans VinRepositoryInMemoryImpl");
 		vin.setId(currentId++);
 		inMemoryDb.put(vin.getId(), vin);
 		return vin;

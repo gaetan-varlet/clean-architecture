@@ -4,16 +4,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import com.example.democleanarch.config.Instantiation;
 import com.example.democleanarch.vin.controller.VinController;
 import com.example.democleanarch.vin.controller.model.VinDTO;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class VinControllerVariousTest {
 
-	private final Instantiation ins = new Instantiation();
-	private final VinController vinController = new VinController(ins.createVin(), ins.findVin(), ins.deleteVin());
+	@Autowired
+	private VinController vinController;
+
+	@BeforeEach
+	void reset() {
+		vinController.deleteAll();
+	}
 
 	@Test
 	void doitAvoirAucunVin() {

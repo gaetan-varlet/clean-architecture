@@ -4,6 +4,9 @@ import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
 import com.example.democleanarch.vin.usecase.port.VinRepository;
 import com.example.democleanarch.vin.usecase.validator.VinValidator;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DeleteVin {
 
 	private final VinRepository repository;
