@@ -1,25 +1,40 @@
 package com.example.democleanarch.vin;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
 
-import com.example.democleanarch.config.BeanConfig;
+import com.example.democleanarch.conf.SpringBootTestDefaultConf;
 import com.example.democleanarch.vin.controller.VinController;
 import com.example.democleanarch.vin.controller.model.VinDTO;
-import com.example.democleanarch.vin.usecase.port.inmemory.VinRepositoryInMemoryImpl;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
-public class VinControllerVariousTest {
+public class VinControllerIT extends SpringBootTestDefaultConf {
 
-	private BeanConfig config = new BeanConfig(new VinRepositoryInMemoryImpl());
-	private VinController vinController = config.vinController();
+	@Autowired
+	private MockMvc mockMvc;
+
+	@Autowired
+	private VinController vinController;
 
 	@BeforeEach
 	void reset() {
 		vinController.deleteAll();
+	}
+
+	@Test
+	void test() throws Exception {
+		mockMvc.perform(get("/vin"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(0)));
 	}
 
 	@Test

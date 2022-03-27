@@ -2,11 +2,11 @@ package com.example.democleanarch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.example.democleanarch.conf.SpringBootTestDefaultConf;
 
-@SpringBootTest
-class DemoCleanArchApplicationTests {
+import org.junit.jupiter.api.Test;
+
+class DemoCleanArchApplicationTests extends SpringBootTestDefaultConf {
 
 	@Test
 	void contextLoads() {
