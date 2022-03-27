@@ -2,7 +2,9 @@ package com.example.democleanarch.vin.usecase.port.jpa;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.example.democleanarch.vin.model.Vin;
@@ -15,7 +17,8 @@ import lombok.Data;
 public class VinEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_vin")
+	@SequenceGenerator(name = "seq_vin", sequenceName = "vin_id_seq", allocationSize = 1)
 	private Integer id;
 	private String chateau;
 	private String appellation;

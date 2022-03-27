@@ -46,7 +46,10 @@ public class VinController {
 	}
 
 	public void deleteAll() {
-		findVin.findAllVin().stream().forEach(v -> deleteVin.deleteById(v.getId()));
+		List<Vin> vins = findVin.findAllVin();
+		for (Vin v : vins) {
+			deleteVin.deleteById(v.getId());
+		}
 	}
 
 }

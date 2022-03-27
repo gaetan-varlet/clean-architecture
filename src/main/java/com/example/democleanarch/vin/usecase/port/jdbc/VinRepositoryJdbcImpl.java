@@ -23,12 +23,12 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 	@Autowired
 	private DataSource dataSource;
 
-	private static final String NO_DATE_SOURCE = "no data source";
+	private static final String NO_DATA_SOURCE = "no data source";
 
 	@Override
 	public Vin create(Vin vin) {
 		log.info("Création d'un vin dans VinRepositoryJdbcImpl");
-		String request = "INSERT INTO vin (id, chateau, appellation, prix) VALUES (NEXT VALUE FOR HIBERNATE_SEQUENCE, ?, ?, ?)";
+		String request = "INSERT INTO vin (id, chateau, appellation, prix) VALUES (NEXT VALUE FOR vin_id_seq, ?, ?, ?)";
 		if (dataSource != null) {
 			try (
 					Connection connection = dataSource.getConnection();
@@ -43,7 +43,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 				throw new JdbcException(e.getMessage());
 			}
 		}
-		throw new JdbcException(NO_DATE_SOURCE);
+		throw new JdbcException(NO_DATA_SOURCE);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 				throw new JdbcException(e.getMessage());
 			}
 		}
-		throw new JdbcException(NO_DATE_SOURCE);
+		throw new JdbcException(NO_DATA_SOURCE);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 				throw new JdbcException(e.getMessage());
 			}
 		}
-		throw new JdbcException(NO_DATE_SOURCE);
+		throw new JdbcException(NO_DATA_SOURCE);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 				throw new JdbcException(e.getMessage());
 			}
 		}
-		throw new JdbcException(NO_DATE_SOURCE);
+		throw new JdbcException(NO_DATA_SOURCE);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 				throw new JdbcException(e.getMessage());
 			}
 		}
-		throw new JdbcException(NO_DATE_SOURCE);
+		throw new JdbcException(NO_DATA_SOURCE);
 	}
 
 	private Vin mapResultSetToVin(ResultSet rs) throws SQLException {
