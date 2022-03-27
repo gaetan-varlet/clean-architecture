@@ -117,6 +117,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 					PreparedStatement ps = connection.prepareStatement(request);) {
 				ps.setInt(1, id);
 				ps.executeUpdate();
+				return;
 			} catch (SQLException e) {
 				throw new JdbcException(e.getMessage());
 			}
