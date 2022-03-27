@@ -7,7 +7,6 @@ import com.example.democleanarch.vin.usecase.exception.VinAlreadyExistsException
 import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
 import com.example.democleanarch.vin.usecase.exception.VinValidationException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,6 @@ public class VinControllerSpringImpl {
 
 	private final VinController controller;
 
-	@Autowired
 	public VinControllerSpringImpl(final VinController controller) {
 		this.controller = controller;
 	}
