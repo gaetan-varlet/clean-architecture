@@ -20,12 +20,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("vin")
-public class SpringVinController {
+public class VinControllerSpringImpl {
 
 	private final VinController controller;
 
 	@Autowired
-	public SpringVinController(final VinController controller) {
+	public VinControllerSpringImpl(final VinController controller) {
 		this.controller = controller;
 	}
 
