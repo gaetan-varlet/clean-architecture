@@ -1,29 +1,33 @@
 package com.example.democleanarch.vin;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.List;
 
 import com.example.democleanarch.conf.SpringBootTestDefaultConf;
 import com.example.democleanarch.vin.controller.VinController;
 import com.example.democleanarch.vin.controller.model.VinDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 public class VinControllerIT extends SpringBootTestDefaultConf {
 
 	@Autowired
-	private MockMvc mockMvc;
+	private VinController vinController;
 
 	@Autowired
-	private VinController vinController;
+	private MockMvc mockMvc;
+
+	private ObjectMapper mapper = new ObjectMapper();
+
+	private static final String URL = "/vin";
 
 	@BeforeEach
 	void reset() {
@@ -31,57 +35,53 @@ public class VinControllerIT extends SpringBootTestDefaultConf {
 	}
 
 	@Test
-	void test() throws Exception {
-		mockMvc.perform(get("/vin"))
+	void doitAvoirAucunVin() throws Exception {
+		mockMvc.perform(get(URL))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(0)));
 	}
 
 	@Test
-	void doitAvoirAucunVin() {
-		List<VinDTO> vins = vinController.getAllVins();
-		assertThat(vins).isEmpty();
-	}
-
-	@Test
-	void doitCreerVinsPuiSupprimerVin() {
+	void doitCreerVinsPuiSupprimerVin() throws Exception {
 		// il doit n'y avoir aucun vin avant la création
-		List<VinDTO> vins = vinController.getAllVins();
-		assertThat(vins).isEmpty();
+		mockMvc.perform(get(URL))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(0)));
 
 		// création 1
 		VinDTO toSave = new VinDTO();
 		toSave.setChateau("chateau1");
 		toSave.setAppellation("app");
-		Integer firstId = vinController.createVin(toSave).getId();
+		mockMvc.perform(post(URL)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(toSave)))
+				.andExpect(status().isOk());
 
 		// il doit y avoir 1 vin
-		vins = vinController.getAllVins();
-		assertThat(vins).hasSize(1);
+		mockMvc.perform(get(URL))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(1)));
 
 		// création 2
 		toSave = new VinDTO();
 		toSave.setChateau("chateau2");
 		toSave.setAppellation("app");
-		VinDTO createdVin = vinController.createVin(toSave);
+		mockMvc.perform(post(URL)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(toSave)))
+				.andExpect(status().isOk());
 
 		// il doit y avoir 2 vin
-		vins = vinController.getAllVins();
-		assertThat(vins).hasSize(2);
-
-		// supprression du 2e vin créé
-		vinController.deleteVin(createdVin.getId());
-
-		// il doit y avoir 1 vin
-		vins = vinController.getAllVins();
-		assertThat(vins).hasSize(1);
-		assertThat(vins.get(0).getId()).isEqualTo(firstId);
+		mockMvc.perform(get(URL))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(2)));
 	}
 
 	@Test
-	void doitEncoreAvoirAucunVin2() {
-		List<VinDTO> vins = vinController.getAllVins();
-		assertThat(vins).isEmpty();
+	void doitEncoreAvoirAucunVin2() throws Exception {
+		mockMvc.perform(get(URL))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(0)));
 	}
 
 }
