@@ -4,35 +4,38 @@ import com.example.democleanarch.vin.controller.VinController;
 import com.example.democleanarch.vin.usecase.CreateVin;
 import com.example.democleanarch.vin.usecase.DeleteVin;
 import com.example.democleanarch.vin.usecase.FindVin;
+import com.example.democleanarch.vin.usecase.port.VinRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SpringConfig {
+public class BeanConfig {
 
-	@Autowired
-	private ManualConfig config;
+	private VinRepository vinRepository;
+
+	public BeanConfig(final VinRepository vinRepository) {
+		this.vinRepository = vinRepository;
+	}
 
 	@Bean
 	public CreateVin createVin() {
-		return config.createVin();
+		return new CreateVin(vinRepository);
 	}
 
 	@Bean
 	public FindVin findVin() {
-		return config.findVin();
+		return new FindVin(vinRepository);
 	}
 
 	@Bean
 	public DeleteVin deleteVin() {
-		return config.deleteVin();
+		return new DeleteVin(vinRepository);
 	}
 
 	@Bean
 	public VinController vinController() {
-		return config.vinController();
+		return new VinController(createVin(), findVin(), deleteVin());
 	}
 
 }
