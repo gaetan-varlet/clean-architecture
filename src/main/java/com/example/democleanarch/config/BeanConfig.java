@@ -6,7 +6,6 @@ import com.example.democleanarch.vin.usecase.port.jdbc.VinRepositoryJdbcImpl;
 import com.example.democleanarch.vin.usecase.port.jpa.JpaVinRepository;
 import com.example.democleanarch.vin.usecase.port.jpa.VinRepositoryJpaImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
