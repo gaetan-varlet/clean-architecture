@@ -4,19 +4,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import com.example.democleanarch.config.ManualConfig;
 import com.example.democleanarch.vin.controller.VinController;
 import com.example.democleanarch.vin.controller.model.VinDTO;
+import com.example.democleanarch.vin.usecase.port.inmemory.VinRepositoryInMemoryImpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 public class VinControllerVariousTest {
 
-	@Autowired
-	private VinController vinController;
+	private ManualConfig config = new ManualConfig(new VinRepositoryInMemoryImpl());
+	private VinController vinController = config.vinController();
 
 	@BeforeEach
 	void reset() {

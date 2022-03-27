@@ -5,9 +5,6 @@ import com.example.democleanarch.vin.usecase.exception.VinAlreadyExistsException
 import com.example.democleanarch.vin.usecase.port.VinRepository;
 import com.example.democleanarch.vin.usecase.validator.VinValidator;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class CreateVin {
 
 	private final VinRepository repository;

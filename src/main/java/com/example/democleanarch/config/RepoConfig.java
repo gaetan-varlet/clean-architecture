@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @Slf4j
-public class BeanConfig {
+public class RepoConfig {
 
 	@Value("${vin.repository}")
 	private String vinRepository;
@@ -35,7 +35,6 @@ public class BeanConfig {
 		} else {
 			throw new IllegalArgumentException("bad value for property");
 		}
-
 	}
 
 }
