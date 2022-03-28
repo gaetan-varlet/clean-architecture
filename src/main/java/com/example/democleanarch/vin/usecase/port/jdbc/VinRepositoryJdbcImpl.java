@@ -28,7 +28,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 	@Override
 	public Vin create(Vin vin) {
 		log.info("Création d'un vin dans VinRepositoryJdbcImpl");
-		String request = "INSERT INTO vin (id, chateau, appellation, prix) VALUES (NEXT VALUE FOR vin_id_seq, ?, ?, ?)";
+		String request = "INSERT INTO vin (id, chateau, appellation, prix) VALUES (nextval('vin_id_seq'), ?, ?, ?)";
 		if (dataSource != null) {
 			try (
 					Connection connection = dataSource.getConnection();
