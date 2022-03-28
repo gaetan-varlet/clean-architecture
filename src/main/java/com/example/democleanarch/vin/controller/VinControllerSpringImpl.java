@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("vin")
+@Transactional
 public class VinControllerSpringImpl {
 
 	private final VinController controller;
@@ -54,7 +55,6 @@ public class VinControllerSpringImpl {
 	}
 
 	@DeleteMapping
-	@Transactional
 	public void deleteAll() {
 		controller.deleteAll();
 	}
