@@ -130,7 +130,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 		vin.setId(rs.getInt("id"));
 		vin.setAppellation(rs.getString("appellation"));
 		vin.setChateau(rs.getString("chateau"));
-		vin.setPrix(rs.getDouble("prix"));
+		vin.setPrix(rs.getObject("prix") == null ? null : rs.getDouble("prix"));
 		return vin;
 	}
 
