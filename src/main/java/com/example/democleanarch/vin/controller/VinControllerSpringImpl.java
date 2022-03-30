@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,7 +32,6 @@ public class VinControllerSpringImpl {
 	}
 
 	@PostMapping
-	@Transactional
 	public VinDTO create(@RequestBody final VinDTO vinDTO) {
 		try {
 			return controller.createVin(vinDTO);
@@ -49,6 +49,15 @@ public class VinControllerSpringImpl {
 	public VinDTO getById(@PathVariable final Integer id) {
 		try {
 			return controller.getVin(id);
+		} catch (VinNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+
+	@DeleteMapping("multiple")
+	public void delete(@RequestParam List<Integer> id) {
+		try {
+			controller.deleteVin(id);
 		} catch (VinNotFoundException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}

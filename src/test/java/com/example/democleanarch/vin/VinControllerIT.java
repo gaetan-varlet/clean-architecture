@@ -1,5 +1,6 @@
 package com.example.democleanarch.vin;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -72,6 +73,37 @@ public class VinControllerIT extends SpringBootTestDefaultConf {
 				.andExpect(status().isOk());
 
 		// il doit y avoir 2 vin
+		mockMvc.perform(get(URL))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(2)));
+	}
+
+	@Test
+	void suppressionMultipleErreur() throws Exception {
+		// il doit n'y avoir aucun vin avant la création
+		mockMvc.perform(get(URL))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(0)));
+
+		// création 1
+		VinDTO toSave = new VinDTO();
+		toSave.setChateau("chateau1");
+		toSave.setAppellation("app");
+		Integer id1 = vinController.createVin(toSave).getId();
+		// création 2
+		toSave.setChateau("chateau2");
+		vinController.createVin(toSave);
+
+		// il doit y avoir 2 vins après la création
+		mockMvc.perform(get(URL))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(2)));
+
+		// tentative de suppression de 2 vins
+		mockMvc.perform(delete(URL + "/multiple" + "?id=" + id1 + "&id=5000"))
+				.andExpect(status().isNotFound());
+
+		// il doit toujours y avoir 2 vin car le second était en erreur
 		mockMvc.perform(get(URL))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(2)));

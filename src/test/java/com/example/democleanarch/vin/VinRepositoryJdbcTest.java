@@ -14,9 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
 
-@TestPropertySource(locations = "classpath:application.properties", properties = {
-		"vin.repository=jdbc"
-})
+@TestPropertySource(locations = "classpath:application.properties", properties = { "vin.repository=jdbc" })
 public class VinRepositoryJdbcTest extends SpringBootTestDefaultConf {
 
 	@Autowired

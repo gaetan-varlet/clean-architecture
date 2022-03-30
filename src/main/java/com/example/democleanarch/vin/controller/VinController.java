@@ -1,7 +1,8 @@
 package com.example.democleanarch.vin.controller;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.example.democleanarch.vin.controller.model.VinDTO;
 import com.example.democleanarch.vin.model.Vin;
@@ -32,14 +33,17 @@ public class VinController {
 	}
 
 	public List<VinDTO> getAllVins() {
-		return findVin.findAllVin()
-				.stream()
+		return findVin.findAllVin().stream()
 				.map(VinDTO::toVinDTO)
-				.collect(Collectors.toList());
+				.collect(toList());
 	}
 
 	public String deleteVin(final Integer id) {
 		return deleteVin.deleteById(id);
+	}
+
+	public List<String> deleteVin(final List<Integer> ids) {
+		return ids.stream().map(this::deleteVin).collect(toList());
 	}
 
 	public void deleteAll() {
