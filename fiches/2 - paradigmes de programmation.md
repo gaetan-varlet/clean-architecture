@@ -18,11 +18,27 @@
 
 ## Programmation orientée objet
 
-- elle impose une discipline aux transferts indirects du contrôle d'exécution
+- elle impose une **discipline aux transferts indirects du contrôle d'exécution**
+- la POO consiste en la définition d'un objet, qui représente un concept, une idée ou toute entité du monde physique. Un objet possède des attributs et des méthodes. Elle se définie selon 3 concepts :
+	- **l'encapsulation** : regroupement d'attributs avec un ensemble de méthodes pour permettre la lecture et la manipulation
+	- **l'héritage** : mécanisme qui permet d'inclure dans une classe les caracéristiques d'une autre classe
+	- **le polymorphisme** : concept consistant à fournir une interface unique à des entités pouvant avoir différents types. Cela permet de modifier le comportement d'une classe fille par rapport à sa mère, notamment le comportement des méthodes héritées en concervant la même signature
+- faire de l'encapsulation, de l'héritage et du polymorphisme était déjà possible dans des langagues non OO, cependant le polymorphisme était périlleux à mettre en place, alors qu'il est simple à mettre en place dans les langages OO
+- grâce au polymorphisme, l'**inversion des dépendances** est possible avec l'utilisation d'interface
+- cela permet par exemple que la partie base de données dépendent des règles métier plutôt que l'inverse. Le code source du module des règles métier n'aura jamais à mentionner les détails du module de la partie base de données, ce qui permet par exemple d'avoir des modules indépendant d'un point de vue compilation et déploiement
 
 ## Programmation fonctionnelle
 
-- elle impose une discipline aux affectations de valeurs
+- elle impose une **discipline aux affectations de valeurs**
+- **la valeur des variables ne change jamais**, afin de se prémunir des effets de bord des opérations d'affectation (conflit d'accès par exemple). On parle d'**immutabilité**
+- au contraire, elle met en avant l'application de fonctions
+- nécessite un espace mémoire et une vitesse de processeur importante
+- les applications sont conformes non plus au modèle CRUD mais au seulement au modèle Créer et Lire
+- c'est le fonctionnement des logiciels de gestion de contrôle de version de code source
+- exemple d'une application bancaire où l'on enregistre chaque opération. Lorsqu'on veut récupérer le solde :
+	- approche fonctionnelle : enchaînement des opérations depuis le début pour calculer le solde
+	- approche classique : le solde est mis à jour après chaque opération, il est donc accessible sans calcul
+	- approche intermédiaire, dite **sourçage d'événements** : enregistrement d'un état figé, par exemple toutes les nuits, et recalcul des mouvements successifs correspondants aux transactions depuis ce moment
 
 ## Conclusion
 
