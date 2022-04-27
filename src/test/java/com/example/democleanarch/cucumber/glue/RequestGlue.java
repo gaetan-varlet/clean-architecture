@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.democleanarch.DemoCleanArchApplication;
 
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -44,8 +47,9 @@ public class RequestGlue {
 	}
 
 	@Then("le contenu de la reponse doit etre strictement")
-	public void testBody(String content) {
-		assertThat(response.getBody()).isEqualTo(content);
+	public void testBody(String content) throws JSONException {
+		// bibliothèque de test permettant de comparer des objets JSON
+		JSONAssert.assertEquals(content, response.getBody(), JSONCompareMode.STRICT);
 	}
 
 }
