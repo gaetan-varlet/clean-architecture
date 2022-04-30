@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -16,6 +17,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<cucumber.version>7.2.3</cucumber.version>
+		<jsonassert.version>1.5.0</jsonassert.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -81,7 +83,7 @@ devtools est désactivé automatiquement quand l'application est exécutée de m
 		<dependency>
 			<groupId>org.skyscreamer</groupId>
 			<artifactId>jsonassert</artifactId>
-			<version>1.5.0</version>
+			<version>${jsonassert.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
