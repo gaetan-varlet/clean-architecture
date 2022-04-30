@@ -31,3 +31,21 @@ Feature: Opérations sur les vins
 				}
 			]
 			"""
+
+	Scenario: recherche de tous les vins quand il y a des données en base
+		Given la table "vin" contient
+			| id | chateau  | appellation | prix |
+			| 2  | chateau1 | app1        | 1.2  |
+		When j'envoie la requete en GET sur l'url "/vin"
+		Then le code HTTP de la réponse est 200
+		Then le contenu de la reponse doit etre strictement
+			"""
+			[
+				{
+					"id": 2,
+					"chateau": "chateau1",
+					"appellation": "app1",
+					"prix": 1.2
+				}
+			]
+			"""
