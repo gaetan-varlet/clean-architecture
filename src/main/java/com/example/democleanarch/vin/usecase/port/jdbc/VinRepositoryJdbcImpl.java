@@ -117,12 +117,28 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 					PreparedStatement ps = connection.prepareStatement(request);) {
 				ps.setInt(1, id);
 				ps.executeUpdate();
-				return;
 			} catch (SQLException e) {
 				throw new JdbcException(e.getMessage());
 			}
+		} else {
+			throw new JdbcException(NO_DATA_SOURCE);
 		}
-		throw new JdbcException(NO_DATA_SOURCE);
+	}
+
+	@Override
+	public void deleteAll() {
+		String request = "DELETE FROM vin";
+		if (dataSource != null) {
+			try (
+					Connection connection = dataSource.getConnection();
+					PreparedStatement ps = connection.prepareStatement(request);) {
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				throw new JdbcException(e.getMessage());
+			}
+		} else {
+			throw new JdbcException(NO_DATA_SOURCE);
+		}
 	}
 
 	private Vin mapResultSetToVin(ResultSet rs) throws SQLException {

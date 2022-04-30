@@ -47,4 +47,9 @@ public class VinRepositoryInMemoryImpl implements VinRepository {
 		inMemoryDb.remove(id);
 	}
 
+	@Override
+	public void deleteAll() {
+		inMemoryDb.clear();
+	}
+
 }

@@ -57,4 +57,9 @@ public class VinRepositoryJpaImpl implements VinRepository {
 		repository.deleteById(id);
 	}
 
+	@Override
+	public void deleteAll() {
+		repository.deleteAll();
+	}
+
 }
