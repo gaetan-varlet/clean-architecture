@@ -17,4 +17,6 @@ public interface VinRepository {
 
 	void deleteById(Integer id);
 
+	void deleteAll();
+
 }

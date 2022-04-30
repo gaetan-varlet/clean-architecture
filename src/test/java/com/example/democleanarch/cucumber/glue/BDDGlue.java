@@ -3,7 +3,6 @@ package com.example.democleanarch.cucumber.glue;
 import java.util.List;
 import java.util.Map;
 
-import com.example.democleanarch.vin.controller.VinController;
 import com.example.democleanarch.vin.model.Vin;
 import com.example.democleanarch.vin.usecase.port.VinRepository;
 
@@ -18,12 +17,9 @@ public class BDDGlue {
 	@Autowired
 	private VinRepository repo;
 
-	@Autowired
-	private VinController vinController;
-
 	@Before
 	public void viderBase() {
-		vinController.deleteAll();
+		repo.deleteAll();
 	}
 
 	@Given("la table {string} contient")
