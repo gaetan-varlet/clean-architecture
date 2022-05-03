@@ -1,11 +1,11 @@
-package com.example.democleanarch.vin.usecase.port.jpa;
+package com.example.democleanarch.vin.infra.port.jpa;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.example.democleanarch.vin.model.Vin;
-import com.example.democleanarch.vin.usecase.port.VinRepository;
+import com.example.democleanarch.vin.domain.model.Vin;
+import com.example.democleanarch.vin.domain.usecase.VinRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

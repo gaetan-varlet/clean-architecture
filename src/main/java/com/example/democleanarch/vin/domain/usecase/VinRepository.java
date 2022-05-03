@@ -1,9 +1,9 @@
-package com.example.democleanarch.vin.usecase.port;
+package com.example.democleanarch.vin.domain.usecase;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.example.democleanarch.vin.model.Vin;
+import com.example.democleanarch.vin.domain.model.Vin;
 
 public interface VinRepository {
 

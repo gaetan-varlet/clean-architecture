@@ -7,9 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
-import com.example.democleanarch.vin.controller.VinController;
-import com.example.democleanarch.vin.controller.model.VinDTO;
-import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
+import com.example.democleanarch.vin.domain.usecase.exception.VinNotFoundException;
+import com.example.democleanarch.vin.infra.controller.VinController;
+import com.example.democleanarch.vin.infra.controller.model.VinDTO;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;

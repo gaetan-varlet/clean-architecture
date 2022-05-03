@@ -1,13 +1,13 @@
-package com.example.democleanarch.vin.controller;
+package com.example.democleanarch.vin.infra.controller;
 
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.example.democleanarch.vin.controller.model.VinDTO;
-import com.example.democleanarch.vin.usecase.exception.VinAlreadyExistsException;
-import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
-import com.example.democleanarch.vin.usecase.exception.VinValidationException;
+import com.example.democleanarch.vin.domain.usecase.exception.VinAlreadyExistsException;
+import com.example.democleanarch.vin.domain.usecase.exception.VinNotFoundException;
+import com.example.democleanarch.vin.domain.usecase.exception.VinValidationException;
+import com.example.democleanarch.vin.infra.controller.model.VinDTO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

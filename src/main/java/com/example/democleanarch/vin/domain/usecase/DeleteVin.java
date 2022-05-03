@@ -1,8 +1,7 @@
-package com.example.democleanarch.vin.usecase;
+package com.example.democleanarch.vin.domain.usecase;
 
-import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
-import com.example.democleanarch.vin.usecase.port.VinRepository;
-import com.example.democleanarch.vin.usecase.validator.VinValidator;
+import com.example.democleanarch.vin.domain.usecase.exception.VinNotFoundException;
+import com.example.democleanarch.vin.domain.usecase.validator.VinValidator;
 
 public class DeleteVin {
 

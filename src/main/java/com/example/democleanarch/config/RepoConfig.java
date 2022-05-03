@@ -1,10 +1,10 @@
 package com.example.democleanarch.config;
 
-import com.example.democleanarch.vin.usecase.port.VinRepository;
-import com.example.democleanarch.vin.usecase.port.inmemory.VinRepositoryInMemoryImpl;
-import com.example.democleanarch.vin.usecase.port.jdbc.VinRepositoryJdbcImpl;
-import com.example.democleanarch.vin.usecase.port.jpa.JpaVinRepository;
-import com.example.democleanarch.vin.usecase.port.jpa.VinRepositoryJpaImpl;
+import com.example.democleanarch.vin.domain.usecase.VinRepository;
+import com.example.democleanarch.vin.infra.port.inmemory.VinRepositoryInMemoryImpl;
+import com.example.democleanarch.vin.infra.port.jdbc.VinRepositoryJdbcImpl;
+import com.example.democleanarch.vin.infra.port.jpa.JpaVinRepository;
+import com.example.democleanarch.vin.infra.port.jpa.VinRepositoryJpaImpl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

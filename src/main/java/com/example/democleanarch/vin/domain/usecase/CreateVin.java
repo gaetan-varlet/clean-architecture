@@ -1,9 +1,8 @@
-package com.example.democleanarch.vin.usecase;
+package com.example.democleanarch.vin.domain.usecase;
 
-import com.example.democleanarch.vin.model.Vin;
-import com.example.democleanarch.vin.usecase.exception.VinAlreadyExistsException;
-import com.example.democleanarch.vin.usecase.port.VinRepository;
-import com.example.democleanarch.vin.usecase.validator.VinValidator;
+import com.example.democleanarch.vin.domain.model.Vin;
+import com.example.democleanarch.vin.domain.usecase.exception.VinAlreadyExistsException;
+import com.example.democleanarch.vin.domain.usecase.validator.VinValidator;
 
 public class CreateVin {
 

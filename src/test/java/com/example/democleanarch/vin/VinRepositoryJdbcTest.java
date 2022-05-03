@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.democleanarch.conf.SpringBootTestDefaultConf;
-import com.example.democleanarch.vin.model.Vin;
-import com.example.democleanarch.vin.usecase.port.VinRepository;
+import com.example.democleanarch.vin.domain.model.Vin;
+import com.example.democleanarch.vin.domain.usecase.VinRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

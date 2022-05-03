@@ -1,7 +1,7 @@
-package com.example.democleanarch.vin.usecase.validator;
+package com.example.democleanarch.vin.domain.usecase.validator;
 
-import com.example.democleanarch.vin.model.Vin;
-import com.example.democleanarch.vin.usecase.exception.VinValidationException;
+import com.example.democleanarch.vin.domain.model.Vin;
+import com.example.democleanarch.vin.domain.usecase.exception.VinValidationException;
 
 import org.apache.commons.lang3.StringUtils;
 

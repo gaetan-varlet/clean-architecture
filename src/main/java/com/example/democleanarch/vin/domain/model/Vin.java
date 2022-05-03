@@ -1,4 +1,4 @@
-package com.example.democleanarch.vin.model;
+package com.example.democleanarch.vin.domain.model;
 
 import lombok.Data;
 

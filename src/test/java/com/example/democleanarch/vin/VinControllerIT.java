@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.democleanarch.conf.SpringBootTestDefaultConf;
-import com.example.democleanarch.vin.controller.VinController;
-import com.example.democleanarch.vin.controller.model.VinDTO;
+import com.example.democleanarch.vin.infra.controller.VinController;
+import com.example.democleanarch.vin.infra.controller.model.VinDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.hamcrest.Matchers;

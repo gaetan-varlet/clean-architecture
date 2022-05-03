@@ -1,4 +1,4 @@
-package com.example.democleanarch.vin.usecase.port.jdbc;
+package com.example.democleanarch.vin.infra.port.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +10,8 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
-import com.example.democleanarch.vin.model.Vin;
-import com.example.democleanarch.vin.usecase.port.VinRepository;
+import com.example.democleanarch.vin.domain.model.Vin;
+import com.example.democleanarch.vin.domain.usecase.VinRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

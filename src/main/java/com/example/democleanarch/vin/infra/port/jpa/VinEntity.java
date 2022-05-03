@@ -1,4 +1,4 @@
-package com.example.democleanarch.vin.usecase.port.jpa;
+package com.example.democleanarch.vin.infra.port.jpa;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.example.democleanarch.vin.model.Vin;
+import com.example.democleanarch.vin.domain.model.Vin;
 
 import lombok.Data;
 

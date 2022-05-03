@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
 import com.example.democleanarch.config.BeanConfig;
-import com.example.democleanarch.vin.controller.VinController;
-import com.example.democleanarch.vin.controller.model.VinDTO;
-import com.example.democleanarch.vin.usecase.port.inmemory.VinRepositoryInMemoryImpl;
+import com.example.democleanarch.vin.infra.controller.VinController;
+import com.example.democleanarch.vin.infra.controller.model.VinDTO;
+import com.example.democleanarch.vin.infra.port.inmemory.VinRepositoryInMemoryImpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

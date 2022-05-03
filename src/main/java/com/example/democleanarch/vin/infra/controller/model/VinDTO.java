@@ -1,6 +1,6 @@
-package com.example.democleanarch.vin.controller.model;
+package com.example.democleanarch.vin.infra.controller.model;
 
-import com.example.democleanarch.vin.model.Vin;
+import com.example.democleanarch.vin.domain.model.Vin;
 
 import lombok.Data;
 

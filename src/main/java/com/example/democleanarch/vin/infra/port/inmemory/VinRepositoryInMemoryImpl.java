@@ -1,4 +1,4 @@
-package com.example.democleanarch.vin.usecase.port.inmemory;
+package com.example.democleanarch.vin.infra.port.inmemory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.example.democleanarch.vin.model.Vin;
-import com.example.democleanarch.vin.usecase.port.VinRepository;
+import com.example.democleanarch.vin.domain.model.Vin;
+import com.example.democleanarch.vin.domain.usecase.VinRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

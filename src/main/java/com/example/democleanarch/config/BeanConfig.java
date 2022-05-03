@@ -1,10 +1,10 @@
 package com.example.democleanarch.config;
 
-import com.example.democleanarch.vin.controller.VinController;
-import com.example.democleanarch.vin.usecase.CreateVin;
-import com.example.democleanarch.vin.usecase.DeleteVin;
-import com.example.democleanarch.vin.usecase.FindVin;
-import com.example.democleanarch.vin.usecase.port.VinRepository;
+import com.example.democleanarch.vin.domain.usecase.CreateVin;
+import com.example.democleanarch.vin.domain.usecase.DeleteVin;
+import com.example.democleanarch.vin.domain.usecase.FindVin;
+import com.example.democleanarch.vin.domain.usecase.VinRepository;
+import com.example.democleanarch.vin.infra.controller.VinController;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

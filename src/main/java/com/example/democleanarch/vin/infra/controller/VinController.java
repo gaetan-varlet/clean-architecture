@@ -1,15 +1,15 @@
-package com.example.democleanarch.vin.controller;
+package com.example.democleanarch.vin.infra.controller;
 
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
-import com.example.democleanarch.vin.controller.model.VinDTO;
-import com.example.democleanarch.vin.model.Vin;
-import com.example.democleanarch.vin.usecase.CreateVin;
-import com.example.democleanarch.vin.usecase.DeleteVin;
-import com.example.democleanarch.vin.usecase.FindVin;
-import com.example.democleanarch.vin.usecase.exception.VinNotFoundException;
+import com.example.democleanarch.vin.domain.model.Vin;
+import com.example.democleanarch.vin.domain.usecase.CreateVin;
+import com.example.democleanarch.vin.domain.usecase.DeleteVin;
+import com.example.democleanarch.vin.domain.usecase.FindVin;
+import com.example.democleanarch.vin.domain.usecase.exception.VinNotFoundException;
+import com.example.democleanarch.vin.infra.controller.model.VinDTO;
 
 public class VinController {
 
