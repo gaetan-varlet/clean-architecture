@@ -1,153 +1,77 @@
 package com.example.democleanarch.vin.infra.port.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import com.example.democleanarch.vin.domain.model.Vin;
 import com.example.democleanarch.vin.domain.usecase.VinRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.democleanarch.vin.infra.port.jpa.VinEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class VinRepositoryJdbcImpl implements VinRepository {
 
-	@Autowired
-	private DataSource dataSource;
+	@PersistenceContext
+	private EntityManager em;
 
-	private static final String NO_DATA_SOURCE = "no data source";
-
+	@Transactional
 	@Override
 	public Vin create(Vin vin) {
 		log.info("Création d'un vin dans VinRepositoryJdbcImpl");
-		String request = "INSERT INTO vin (id, chateau, appellation, prix) VALUES (nextval('vin_id_seq'), ?, ?, ?)";
-		if (dataSource != null) {
-			try (
-					Connection connection = dataSource.getConnection();
-					PreparedStatement ps = connection.prepareStatement(request);) {
-				ps.setString(1, vin.getChateau());
-				ps.setString(2, vin.getAppellation());
-				ps.setObject(3, vin.getPrix());
-				ps.executeUpdate();
-				return findByChateau(vin.getChateau())
-						.orElseThrow(() -> new JdbcException("Erreur lors de l'enregistrement du vin"));
-			} catch (SQLException e) {
-				throw new JdbcException(e.getMessage());
-			}
-		}
-		throw new JdbcException(NO_DATA_SOURCE);
+		Query query = em.createNamedQuery("insertVin");
+		query.setParameter(1, vin.getChateau());
+		query.setParameter(2, vin.getAppellation());
+		query.setParameter(3, vin.getPrix());
+		query.executeUpdate();
+		return findByChateau(vin.getChateau())
+				.orElseThrow(() -> new JdbcException("Erreur lors de l'enregistrement du vin"));
 	}
 
 	@Override
 	public List<Vin> findAll() {
-		String request = "SELECT * FROM vin";
-		if (dataSource != null) {
-			try (
-					Connection connection = dataSource.getConnection();
-					PreparedStatement ps = connection.prepareStatement(request);
-					ResultSet rs = ps.executeQuery();) {
-				List<Vin> vins = new ArrayList<>();
-				while (rs.next()) {
-					vins.add(mapResultSetToVin(rs));
-				}
-				return vins;
-			} catch (SQLException e) {
-				throw new JdbcException(e.getMessage());
-			}
-		}
-		throw new JdbcException(NO_DATA_SOURCE);
+		TypedQuery<VinEntity> query = em.createNamedQuery("findAllVins", VinEntity.class);
+		List<VinEntity> list = query.getResultList();
+		return list.stream().map(VinEntity::toVin).collect(Collectors.toList());
 	}
 
 	@Override
 	public Optional<Vin> findById(Integer id) {
-		String request = "SELECT * FROM vin WHERE id = ?";
-		if (dataSource != null) {
-			try (
-					Connection connection = dataSource.getConnection();
-					PreparedStatement ps = connection.prepareStatement(request);) {
-				ps.setInt(1, id);
-				try (ResultSet rs = ps.executeQuery()) {
-					if (rs.next()) {
-						return Optional.of(mapResultSetToVin(rs));
-					}
-				}
-				return Optional.empty();
-			} catch (SQLException e) {
-				throw new JdbcException(e.getMessage());
-			}
-		}
-		throw new JdbcException(NO_DATA_SOURCE);
+		VinEntity vinEntity = em.find(VinEntity.class, id);
+		return Optional.ofNullable(vinEntity == null ? null : vinEntity.toVin());
 	}
 
 	@Override
 	public Optional<Vin> findByChateau(String chateau) {
-		String request = "SELECT * FROM vin WHERE chateau = ?";
-		if (dataSource != null) {
-			try (
-					Connection connection = dataSource.getConnection();
-					PreparedStatement ps = connection.prepareStatement(request);) {
-				ps.setString(1, chateau);
-				try (ResultSet rs = ps.executeQuery()) {
-					if (rs.next()) {
-						return Optional.of(mapResultSetToVin(rs));
-					}
-				}
-				return Optional.empty();
-			} catch (SQLException e) {
-				throw new JdbcException(e.getMessage());
-			}
+		TypedQuery<VinEntity> query = em.createNamedQuery("vinbyChateau", VinEntity.class);
+		query.setParameter(1, chateau);
+		List<VinEntity> result = query.getResultList();
+		if (result.isEmpty()) {
+			return Optional.empty();
 		}
-		throw new JdbcException(NO_DATA_SOURCE);
+		return Optional.of(result.get(0).toVin());
 	}
 
+	@Transactional
 	@Override
 	public void deleteById(Integer id) {
-		String request = "DELETE FROM vin WHERE id = ?";
-		if (dataSource != null) {
-			try (
-					Connection connection = dataSource.getConnection();
-					PreparedStatement ps = connection.prepareStatement(request);) {
-				ps.setInt(1, id);
-				ps.executeUpdate();
-			} catch (SQLException e) {
-				throw new JdbcException(e.getMessage());
-			}
-		} else {
-			throw new JdbcException(NO_DATA_SOURCE);
-		}
+		Query query = em.createNamedQuery("deleteVinById");
+		query.setParameter(1, id);
+		query.executeUpdate();
 	}
 
+	@Transactional
 	@Override
 	public void deleteAll() {
-		String request = "DELETE FROM vin";
-		if (dataSource != null) {
-			try (
-					Connection connection = dataSource.getConnection();
-					PreparedStatement ps = connection.prepareStatement(request);) {
-				ps.executeUpdate();
-			} catch (SQLException e) {
-				throw new JdbcException(e.getMessage());
-			}
-		} else {
-			throw new JdbcException(NO_DATA_SOURCE);
-		}
-	}
-
-	private Vin mapResultSetToVin(ResultSet rs) throws SQLException {
-		Vin vin = new Vin();
-		vin.setId(rs.getInt("id"));
-		vin.setAppellation(rs.getString("appellation"));
-		vin.setChateau(rs.getString("chateau"));
-		vin.setPrix(rs.getObject("prix") == null ? null : rs.getDouble("prix"));
-		return vin;
+		Query query = em.createNamedQuery("deleteAllVins");
+		query.executeUpdate();
 	}
 
 }
