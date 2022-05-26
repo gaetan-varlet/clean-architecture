@@ -27,7 +27,7 @@ public class BDDGlue {
 		List<Map<String, String>> dataAsMap = dataTable.asMaps();
 		for (Map<String, String> ligne : dataAsMap) {
 			Vin vin = new Vin();
-			vin.setId(Integer.valueOf(ligne.get("id")));
+			// vin.setId(Integer.valueOf(ligne.get("id")));
 			vin.setChateau(ligne.get("chateau"));
 			vin.setAppellation(ligne.get("appellation"));
 			vin.setPrix(Double.valueOf(ligne.get("prix")));

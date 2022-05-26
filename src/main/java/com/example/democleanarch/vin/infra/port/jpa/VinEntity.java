@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -11,6 +12,10 @@ import com.example.democleanarch.vin.domain.model.Vin;
 
 import lombok.Data;
 
+@NamedQuery(name = "vinbyChateau", query = "FROM VinEntity v WHERE v.chateau = ?1")
+@NamedQuery(name = "findAllVins", query = "FROM VinEntity")
+@NamedQuery(name = "deleteAllVins", query = "DELETE FROM VinEntity")
+@NamedQuery(name = "deleteVinById", query = "DELETE FROM VinEntity v WHERE v.id = ?1")
 @Entity
 @Table(name = "vin")
 @Data

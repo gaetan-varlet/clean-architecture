@@ -1,9 +1,5 @@
 # Clean Architecture
 
-## A vérifier
-
-- problème de transaction dans l'implémentation JDBC : `@Transactional` n'est pas pris en compte comme avec JPA, l'autocommit est à true, et si on le met à false, il y a un problème pour commit car la connexion est rendue au pool de connexion à la fin de la méthode
-
 ## Les avantages de la clean architecture
 
 réduction des dépendances de la logique métier avec les services que l'on consomme afin de maintenir une application stable dans le temps
