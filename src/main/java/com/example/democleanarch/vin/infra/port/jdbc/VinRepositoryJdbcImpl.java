@@ -26,11 +26,7 @@ public class VinRepositoryJdbcImpl implements VinRepository {
 	@Override
 	public Vin create(Vin vin) {
 		log.info("Création d'un vin dans VinRepositoryJdbcImpl");
-		Query query = em.createNamedQuery("insertVin");
-		query.setParameter(1, vin.getChateau());
-		query.setParameter(2, vin.getAppellation());
-		query.setParameter(3, vin.getPrix());
-		query.executeUpdate();
+		em.persist(VinEntity.toVinEntity(vin));
 		return findByChateau(vin.getChateau())
 				.orElseThrow(() -> new JdbcException("Erreur lors de l'enregistrement du vin"));
 	}
