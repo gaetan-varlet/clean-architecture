@@ -22,8 +22,9 @@ import lombok.Data;
 public class VinEntity {
 
 	@Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_vin")
-	@SequenceGenerator(name = "seq_vin", sequenceName = "vin_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "seq_vin", sequenceName = "vin_id_seq", allocationSize = 100)
 	private Integer id;
 	private String chateau;
 	private String appellation;
